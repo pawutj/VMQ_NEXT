@@ -1,6 +1,7 @@
 import { NextApiRequest } from "next";
 
 import { NextApiResponseServerIO } from "@/types/next";
+import { Socket } from "socket.io";
 
 
 export default async function handler(
@@ -13,6 +14,7 @@ export default async function handler(
 
   try {
     console.log("handler")
+    res?.socket?.server?.io?.emit("onCallback", "test")
     return res.status(200).json({message: "test"});
   } catch (error) {
     console.log("[DIRECT_MESSAGES_POST]", error);

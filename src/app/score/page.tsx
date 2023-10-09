@@ -11,10 +11,11 @@ export default function Home() {
     const [onState,setOnState] = useState("")
 
     useEffect(() => {
-        if (!isConnected){
-            return
+        if (!socket){
+            return;
         }
-        socket?.on("onCallback", () => {
+        socket?.on("onCallback",(arg: any) => {
+            console.log("log onCallback", arg)
             setOnState("test on state")
         })
      })
@@ -22,7 +23,7 @@ export default function Home() {
     const addCount = async () => {
         setCount(count + 1)
         try{
-            await axios.post(String(process.env.BASE_URL)+"/api/score/");
+            await axios.post("/api/score/");
         } catch (e) {
             console.log(e)
         }
